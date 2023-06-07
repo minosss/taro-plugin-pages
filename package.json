@@ -1,0 +1,14 @@
+{
+  "name": "@yme/taro-plugin-pages",
+  "version": "0.0.0",
+  "repository": "minosss/taro-plugin-pages",
+  "author": "mino",
+  "main": "index.js",
+  "files": [
+    "index.js",
+    "package.json"
+  ],
+  "dependencies": {
+    "fast-glob": "^3.2.12"
+  }
+}
