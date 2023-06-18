@@ -15,8 +15,8 @@ function generate({
     cwd,
   });
 
-  // 有 _ 的就过滤掉
-  pages = pages.filter((page) => !page.includes('_'));
+  // 下划线 _ 开头的就过滤掉
+  pages = pages.filter((page) => !page.startsWith('_'));
 
   const appConfigPath = path.resolve(cwd, appConfigName);
   const appPages = pages.map((page) => page.replace(extention, ''));
@@ -49,7 +49,7 @@ function generate({
     return acc;
   }, {});
   // 写到文件中 utils/pages.ts
-  const pagesContent = `/* eslint-disable */\n/* prettier-ignore */\n// @ts-nocheck\n// 由组件 generate-pages 生成，不要改\nexport default ${JSON.stringify(pagesObject, null, 2)} as const;`;
+  const pagesContent = `/* eslint-disable */\n/* prettier-ignore */\n// @ts-nocheck\n// 由组件 @yme/taro-plugin-pages 生成，不要改\nexport default ${JSON.stringify(pagesObject, null, 2)} as const;`;
   fs.writeFileSync(pagesPath, pagesContent, { encoding: 'utf8' });
   console.log(`${pagesName} 已更新`);
 }
