@@ -10,5 +10,8 @@
   ],
   "dependencies": {
     "fast-glob": "^3.2.12"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
