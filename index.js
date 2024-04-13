@@ -4,12 +4,13 @@ const glob = require('fast-glob');
 
 function generate({
   cwd,
+  dir = 'pages',
   appConfigName = 'app.config.ts',
   pagesName = 'utils/pages.ts',
   pageName = 'page.vue',
 }) {
   const extention = path.extname(pageName);
-  let pages = glob.sync(`pages/**/${pageName}`, {
+  let pages = glob.sync(`${dir}/**/${pageName}`, {
     ignore: ['node_modules'],
     onlyFiles: true,
     cwd,
@@ -30,11 +31,13 @@ function generate({
   const pagesPath = path.resolve(cwd, pagesName);
   // convert pages to object, nested with folder name
   // eslint-disable-next-line unicorn/no-array-reduce
-  const pagesObject = pages.reduce((acc, currentPage) => {
-    // 去头去尾
-    const pagePath = currentPage.replace('pages/', '').replace(`/${pageName}`, '');
+  const pagesObject = appPages.reduce((acc, currentPage) => {
     // 分割文件夹路径
-    const pagePathArray = pagePath.split('/');
+    const pagePathArray = currentPage.split('/');
+    // 去头去尾
+    pagePathArray.shift(); // 第一个是 pages
+    pagePathArray.pop(); // 最后一个是文件名
+
     // 最后一个是最终页面名称
     const name = pagePathArray.pop();
     // 以 _ 开头的文件夹和文件不作为页面
@@ -61,10 +64,12 @@ module.exports = function (ctx, options = {}) {
     const { chokidar } = ctx.helper;
     const { options: { isWatch }, config: { framework = '' } } = ctx.runOpts;
 
+    const _pageName = pageName || framework.includes('vue') ? 'page.vue' : 'page.tsx';
     const regenerate = () => {
       generate({
+        dir,
         cwd: ctx.paths.sourcePath,
-        pageName: pageName || framework.includes('vue') ? 'page.vue' : 'page.tsx',
+        pageName: _pageName,
         pagesName,
         appConfigName,
       });

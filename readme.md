@@ -27,11 +27,11 @@ export default defineAppConfig({
 // @ts-nocheck
 // 由组件 generate-pages 生成，不要改
 export default {
-  "home": "/pages/home/page.vue",
-  "launch": "/pages/launch/page.vue",
+  "home": "/pages/home/page",
+  "launch": "/pages/launch/page",
   "auth": {
-    "login": "/pages/auth/login/page.vue",
-    "register": "/pages/auth/register/page.vue"
+    "login": "/pages/auth/login/page",
+    "register": "/pages/auth/register/page"
   }
 } as const;
 ```
