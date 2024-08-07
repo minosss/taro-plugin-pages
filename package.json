@@ -1,6 +1,6 @@
 {
   "name": "@yme/taro-plugin-pages",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "repository": "minosss/taro-plugin-pages",
   "author": "mino",
   "main": "index.js",

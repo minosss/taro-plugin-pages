@@ -2,19 +2,21 @@
 
 > taro-plugin-pages 是一个用于 Taro 的插件，用于自动生成 pages 配置。
 
-1. 自动更新 `app.config.ts` 下的 `pages` 字段。可以关闭格式化，避免文件每次都更新。
+**注意: `0.1.0` 开始使用了 `/* pages start */` 的标识来替换页面内容**
 
-**注意: 下划线 `_` 开头的文件名或目录名会过滤掉**
+1. 自动更新 `app.config.ts` 下的 `pages` 字段。可以关闭格式化，避免文件每次都更新。
 
 ```js
 export default defineAppConfig({
   /* eslint-disable */
+  /* pages start */
   pages: [
     'pages/home/page',
     'pages/launch/page',
     'pages/auth/login/page',
     'pages/auth/register/page',
   ],
+  /* pages end */
   /* eslint-enable */
 });
 ```
@@ -36,6 +38,24 @@ export default {
 } as const;
 ```
 
+3. 分包配置
+
+在配置文件中添加 subPackages 字段
+
+- 分包目录需在页面目录下，比如 `pages/@xx`
+- 分包使用前缀 `@` `@@` 标志
+- `@` 分包
+- `@@` 独立分包，有 `independent`
+- 分包的前缀不会在页面对象中显示，`@` 会被换成 `_`，方便这样 `pages.__sub.your.page` 的格式
+
+```js
+export default defineAppConfig({
+  /* subPackages start */
+  subPackages: [],
+  /* subPackages end */
+});
+```
+
 ## 安装
 
 ```bash
@@ -47,19 +67,19 @@ npm i @yme/taro-plugin-pages -D
 在 `config/index.js` 中配置插件，如果你没用 ts 需要自定义配置
 
 ```js
-...
+{
   plugins: [
     ['@yme/taro-plugin-pages', {
-      // 都基于项目的 sourcePath 目录
+      // 通常都不需要改
       // 页面存放的目录
-      dir: 'pages',
+      // dir: 'pages',
       // 页面的文件名
-      pageName: 'page.vue', // 或者 page.tsx 根据 framework 判断
+      // pageName: 'page.vue',
       // 页面对象的储存文件
-      pagesName: 'utils/pages.ts',
+      // pagesName: 'utils/pages.ts',
       // 应用页面配置文件
-      appConfigName: 'app.config.ts',
+      // appConfigName: 'app.config.ts',
     }]
   ]
-...
+}
 ```
