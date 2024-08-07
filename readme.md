@@ -1,5 +1,8 @@
 # taro-plugin-pages
 
+[![NPM version](https://img.shields.io/npm/v/@yme/taro-plugin-pages)](https://www.npmjs.com/package/@yme/taro-plugin-pages)
+[![NPM Downloads](https://img.shields.io/npm/dm/@yme/taro-plugin-pages)](https://www.npmjs.com/package/@yme/taro-plugin-pages)
+
 > taro-plugin-pages 是一个用于 Taro 的插件，用于自动生成 pages 配置。
 
 **注意: `0.1.0` 开始使用了 `/* pages start */` 的标识来替换页面内容**
